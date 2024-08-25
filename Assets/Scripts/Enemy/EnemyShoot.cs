@@ -5,9 +5,20 @@ public class EnemyShoot : BaseShoot
 {
     [SerializeField] private float _delay = 3f;
 
-    private void Start()
+    private Coroutine _attackingCoroutine;
+
+    private void OnEnable()
     {
-        StartCoroutine(Attacking());
+        _attackingCoroutine ??= StartCoroutine(Attacking());
+    }
+
+    private void OnDisable()
+    {
+        if (_attackingCoroutine != null)
+        {
+            StopCoroutine(_attackingCoroutine);
+            _attackingCoroutine = null;
+        }
     }
 
     private IEnumerator Attacking()

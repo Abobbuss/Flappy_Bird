@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IInteractable
 {
-    [SerializeField] private ObjectPool _pool;
-
-    public static Action<Enemy> Dead;
+    public event Action<Enemy> Dead;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

@@ -7,14 +7,14 @@ public class ScoreCounter : MonoBehaviour
 
     public event Action<int> ScoreChanged;
 
-    private void OnEnable()
+    public void SubscribeToEnemy(Enemy enemy)
     {
-        Enemy.Dead += Add;
+        enemy.Dead += Add;
     }
 
-    private void OnDisable()
+    public void UnsubscribeFromEnemy(Enemy enemy)
     {
-        Enemy.Dead += Add;
+        enemy.Dead -= Add;
     }
 
     public void Add(Enemy enemy)

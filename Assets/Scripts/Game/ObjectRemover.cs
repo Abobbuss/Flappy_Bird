@@ -13,13 +13,13 @@ public class ObjectRemover : MonoBehaviour
     private void PutObjectToPool(Enemy enemy)
         => _pool.PutObject(enemy);
 
-    private void OnEnable()
+    public void SubscribeToEnemy(Enemy enemy)
     {
-        Enemy.Dead += PutObjectToPool;   
+        enemy.Dead += PutObjectToPool;
     }
 
-    private void OnDisable()
+    public void UnsubscribeFromEnemy(Enemy enemy)
     {
-        Enemy.Dead -= PutObjectToPool;
+        enemy.Dead -= PutObjectToPool;
     }
 }

@@ -5,10 +5,10 @@ public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private Transform _container;
     [SerializeField] private Enemy _prefab;
+    [SerializeField] private ScoreCounter _scoreCounter;
+    [SerializeField] private ObjectRemover _remover;
 
     private Queue<Enemy> _pool;
-
-    public IEnumerable<Enemy> PooledObjects => _pool;
 
     private void Awake()
     {
@@ -28,14 +28,11 @@ public class ObjectPool : MonoBehaviour
         return _pool.Dequeue();
     }
 
-    public void PutObject(Enemy pipe)
+    public void PutObject(Enemy enemy)
     {
-        _pool.Enqueue(pipe);
-        pipe.gameObject.SetActive(false);
-    }
-
-    public void Reset()
-    {
-        _pool.Clear();
+        _pool.Enqueue(enemy);
+        enemy.gameObject.SetActive(false);
+        _scoreCounter.UnsubscribeFromEnemy(enemy);
+        _remover.UnsubscribeFromEnemy(enemy);
     }
 }

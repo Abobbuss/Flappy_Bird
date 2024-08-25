@@ -1,25 +1,28 @@
 using System.Collections;
 using UnityEngine;
 
-public class PipeGenerator : MonoBehaviour
+public class EnemyGenerator : MonoBehaviour
 {
     [SerializeField] private float _delay;
     [SerializeField] private float _lowerBound;
     [SerializeField] private float _upperBound;
     [SerializeField] private ObjectPool _pool;
+    [SerializeField] private ScoreCounter _scoreCounter;
+    [SerializeField] private ObjectRemover _remover;
 
     private void Start()
     {
-        StartCoroutine(GeneratePipes());
+        StartCoroutine(GenerateEnemis());
     }
 
-    private IEnumerator GeneratePipes()
+    private IEnumerator GenerateEnemis()
     {
         var wait = new WaitForSeconds(_delay);
 
         while (enabled) 
         {
             Spawn();
+
             yield return wait;
         }
     }
@@ -29,9 +32,12 @@ public class PipeGenerator : MonoBehaviour
         float spawnPositionY = Random.Range(_upperBound, _lowerBound);
         Vector3 spawnPoint = new Vector3(transform.position.x, spawnPositionY, transform.position.z);
 
-        var pipe = _pool.GetObject();
+        Enemy enemy = _pool.GetObject();
 
-        pipe.gameObject.SetActive(true);
-        pipe.transform.position = spawnPoint;
+        enemy.gameObject.SetActive(true);
+        enemy.transform.position = spawnPoint;
+
+        _scoreCounter.SubscribeToEnemy(enemy);
+        _remover.SubscribeToEnemy(enemy);
     }
 }
