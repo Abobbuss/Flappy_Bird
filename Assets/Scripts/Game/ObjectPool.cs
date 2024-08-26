@@ -5,8 +5,6 @@ public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private Transform _container;
     [SerializeField] private Enemy _prefab;
-    [SerializeField] private ScoreCounter _scoreCounter;
-    [SerializeField] private ObjectRemover _remover;
 
     private Queue<Enemy> _pool;
 
@@ -32,7 +30,5 @@ public class ObjectPool : MonoBehaviour
     {
         _pool.Enqueue(enemy);
         enemy.gameObject.SetActive(false);
-        _scoreCounter.UnsubscribeFromEnemy(enemy);
-        _remover.UnsubscribeFromEnemy(enemy);
     }
 }

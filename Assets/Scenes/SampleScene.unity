@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pool: {fileID: 649466302}
+  _scoreCounter: {fileID: 1216162872}
 --- !u!50 &175920691
 Rigidbody2D:
   serializedVersion: 4
@@ -705,8 +706,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _container: {fileID: 1879254870}
   _prefab: {fileID: 738761234052877322, guid: ea2179b6a2b70ea4d971ec23caedfaf0, type: 3}
-  _scoreCounter: {fileID: 1216162872}
-  _remover: {fileID: 175920690}
 --- !u!114 &649466303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,6 +1099,7 @@ MonoBehaviour:
   _rotationSpeed: 1
   _maxRotationZ: 35
   _minRotationZ: -60
+  _keyJump: 32
 --- !u!114 &1216162874
 MonoBehaviour:
   m_ObjectHideFlags: 0

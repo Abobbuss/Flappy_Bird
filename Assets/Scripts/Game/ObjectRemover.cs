@@ -3,6 +3,7 @@ using UnityEngine;
 public class ObjectRemover : MonoBehaviour
 {
     [SerializeField] private ObjectPool _pool;
+    [SerializeField] private ScoreCounter _scoreCounter;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -10,16 +11,16 @@ public class ObjectRemover : MonoBehaviour
             PutObjectToPool(enemy);
     }
 
-    private void PutObjectToPool(Enemy enemy)
-        => _pool.PutObject(enemy);
-
     public void SubscribeToEnemy(Enemy enemy)
-    {
-        enemy.Dead += PutObjectToPool;
-    }
+        => enemy.Dead += PutObjectToPool;
 
     public void UnsubscribeFromEnemy(Enemy enemy)
+        => enemy.Dead -= PutObjectToPool;
+
+    private void PutObjectToPool(Enemy enemy)
     {
-        enemy.Dead -= PutObjectToPool;
+        _scoreCounter.UnsubscribeFromEnemy(enemy);
+        UnsubscribeFromEnemy(enemy);
+        _pool.PutObject(enemy);
     }
 }
